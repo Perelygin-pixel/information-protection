@@ -28,6 +28,11 @@ class CryptoAlgorithms():
         of the module.
     """
 
+    if degree < 0:
+      return -1
+    if module <= 0:
+      return -2
+
     degree_binary = format(degree, 'b')[::-1]
     remainder_of_div = 1
     for i in range(len(degree_binary)):
