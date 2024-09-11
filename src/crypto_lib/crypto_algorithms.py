@@ -1,3 +1,4 @@
+from typing import Tuple
 
 class CryptoAlgorithms():
   @staticmethod
@@ -35,3 +36,49 @@ class CryptoAlgorithms():
       init_number = init_number * init_number % module
 
     return remainder_of_div
+
+  @staticmethod
+  def general_euclid_alg(first_number: int,
+                         second_number: int) -> Tuple[int, int, int]:
+    """
+    Implements the Extended Euclidean Algorithm to find the
+    greatest common divisor (GCD) of two integers, as well
+    as the coefficients of Bézout's identity.
+
+    This method calculates the GCD of two integers,
+    `first_number` and `second_number`.
+    Additionally, it finds the integers x and y such that:
+    first_number * x + second_number * y =
+    gcd(first_number, second_number).
+    Returns a tuple (gcd, x, y), where:
+      - gcd: The greatest common divisor
+              of first_number and second_number.
+      - x, y: The coefficients satisfying Bézout's identity.
+
+    Note: If the first number is less than the second,
+    the method returns -1, indicating invalid input
+    for the algorithm.
+
+    Parameters:
+      first_number (int): The first integer.
+      second_number (int): The second integer.
+
+    Returns:
+      Tuple[int, int, int]: A tuple containing the GCD and
+                            Bézout's coefficients (gcd, x, y).
+    """
+
+    if first_number < second_number:
+        return -1
+
+    current = (first_number, 1, 0)
+    next = (second_number, 0, 1)
+
+    while next[0] != 0:
+      quotient = current[0] // next[0]
+      remainder = (current[0] % next[0],
+                  current[1] - quotient * next[1],
+                  current[2] - quotient * next[2])
+      current, next = next, remainder
+
+    return current
